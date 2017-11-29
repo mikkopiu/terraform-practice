@@ -1,0 +1,7 @@
+.terraform/
+terraform.tfplan
+terraform.tfstate
+
+# IDE
+.idea
+.vscode
