@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "eu-central-1"
+  region = "${var.region}"
 }
 
 resource "aws_s3_bucket" "example" {
@@ -11,7 +11,7 @@ resource "aws_s3_bucket" "example" {
 }
 
 resource "aws_instance" "example" {
-  ami = "ami-df8406b0"
+  ami = "${lookup(var.amis, var.region)}"
   instance_type = "t2.micro"
 
   depends_on = ["aws_s3_bucket.example"]
@@ -23,4 +23,11 @@ resource "aws_instance" "example" {
 
 resource "aws_eip" "ip" {
   instance = "${aws_instance.example.id}"
+}
+
+output "ami" {
+  value = "${lookup(var.amis, var.region)}"
+}
+output "ip" {
+  value = "${aws_eip.ip.public_ip}"
 }
