@@ -1,6 +1,7 @@
 .terraform/
 terraform.tfplan
-terraform.tfstate
+**/*.tfstate
+**/*.tfstate.backup
 
 # IDE
 .idea
